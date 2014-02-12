@@ -4,7 +4,13 @@ require 'pathname'
 require 'yaml'
 require 'optparse'
 
-@yaml = Pathname.new('/Users/brandonpittman/Dropbox/Documents/Code/Ruby/inventory.yml')
+def fallback_path
+  `touch #{Dir.home}/.inventory.yml`
+  @path = "#{Dir.home}/.inventory.yml"
+end
+
+@path = '/Users/brandonpittman/Dropbox/Documents/Code/Ruby/inventory.yml' || fallback_path
+@yaml = Pathname.new(@path)
 @stock = YAML.load(@yaml.read)
 
 options = {}
@@ -15,7 +21,7 @@ OptionParser.new do |opts|
 
 "
 
-  opts.on("-n NAME", "--new NAME", "Name of inventory item.") do |name|
+  opts.on("-n NAME", "--name NAME", "Name of inventory item.") do |name|
     @item_name = options[:name] = name
   end
   opts.on("-d", "--delete", "Deletes an inventory item.") do |delete|
@@ -39,6 +45,7 @@ OptionParser.new do |opts|
   opts.on("-b", "--buy", "Opens URL of an inventory item.") do |buy|
     @buy = options[:buy] = buy
   end
+  opts.on("-i", "--inventory", "Take inventory interactively.") { |i| @i = i }
 end.parse!
 
 @stock.each_key { |key| @item = key if key =~ /#{@item_name}/ }
@@ -91,6 +98,14 @@ def help
   p "This is the help message." if @help
 end
 
+def inventory
+  @stock.each do |key, value|
+    value["checked"] = Time.now
+    puts "Enter total for #{key}:"
+    value["total"] = gets.chomp.to_i
+  end
+end
+
 check if @check
 url if @url
 total if @total
@@ -98,4 +113,5 @@ delete if @delete
 add if @add
 min if @min
 help if @help
+inventory if @i
 save
