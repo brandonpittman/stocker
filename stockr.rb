@@ -5,7 +5,7 @@ require 'yaml'
 require 'thor'
 
 class Stockr < Thor
-  @@custom_path = '/Users/brandonpittman/Dropbox/Documents/Code/Ruby/inventory.yml'
+  @@custom_path = ''
   @@path = @@custom_path || fallback_path
   @@yaml = Pathname.new(@@path)
   @@stock = YAML.load(@@yaml.read)
