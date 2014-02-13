@@ -5,18 +5,17 @@ require 'yaml'
 require 'thor'
 
 class Stockr < Thor
-  
+  @@custom_path = '/Users/brandonpittman/Dropbox/Documents/Code/Ruby/inventory.yml'
+  @@path = @@custom_path || fallback_path
+  @@yaml = Pathname.new(@@path)
+  @@stock = YAML.load(@@yaml.read)
+
   no_commands do
     def self.fallback_path
     `touch #{Dir.home}/.inventory.yml`
     @@path = "#{Dir.home}/.inventory.yml"
     end
   end
-  
-  @@custom_path = ''
-  @@path = @@custom_path || fallback_path
-  @@yaml = Pathname.new(@@path)
-  @@stock = YAML.load(@@yaml.read)
 
   desc "add ITEM", "Add ITEM to inventory."
   option :url, :aliases => :u, :required => true
@@ -29,8 +28,8 @@ class Stockr < Thor
 
   desc "delete ITEM", "Delete ITEM from inventory."
   def delete(item)
-    @@stock.each_key { |key| @item_name = key if key =~ /#{item}/ }
-    @@stock.delete(@item_name)
+    @@stock.each_key { |key| @item = key if key =~ /#{item}/ }
+    @@stock.delete(@item)
     Stockr.save
   end
 
@@ -48,14 +47,16 @@ class Stockr < Thor
 
   desc "total ITEM TOTAL", "Set TOTAL of ITEM."
   def total(item, total)
-    @@stock[item]["total"] = total.to_i
+    @@stock.each_key { |key| @item = key if key =~ /#{item}/ }
+    @@stock[@item]["total"] = total.to_i
     Stockr.time(item)
     Stockr.save
   end
 
   no_commands do
     def self.time(item)
-      @@stock[item]["checked"] = Time.now
+      @@stock.each_key { |key| @item = key if key =~ /#{item}/ }
+      @@stock[@item]["checked"] = Time.now
     end
   end
 
@@ -67,19 +68,22 @@ class Stockr < Thor
 
   desc "url ITEM URL", "Set URL of ITEM."
   def url(item, url)
-    @@stock[item]["url"] = url
+    @@stock.each_key { |key| @item = key if key =~ /#{item}/ }
+    @@stock[@item]["url"] = url
     Stockr.time(item)
     Stockr.save
   end
 
   desc "buy ITEM", "Open link to buy ITEM"
   def buy(item)
-    `open -a Safari #{@@stock[item]["url"]}`
+    @@stock.each_key { |key| @item = key if key =~ /#{item}/ }
+    `open -a Safari #{@@stock[@item]["url"]}`
   end
 
   desc "min ITEM MINIMUM", "Set minimum acceptable amount for ITEM."
   def min(item, min)
-    @@stock[item]["min"] = min.to_i
+    @@stock.each_key { |key| @item = key if key =~ /#{item}/ }
+    @@stock[@item]["min"] = min.to_i
     Stockr.save
   end
 
