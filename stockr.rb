@@ -5,17 +5,18 @@ require 'yaml'
 require 'thor'
 
 class Stockr < Thor
-  @@custom_path = ''
-  @@path = @@custom_path || fallback_path
-  @@yaml = Pathname.new(@@path)
-  @@stock = YAML.load(@@yaml.read)
-
+  
   no_commands do
     def self.fallback_path
     `touch #{Dir.home}/.inventory.yml`
     @@path = "#{Dir.home}/.inventory.yml"
     end
   end
+  
+  @@custom_path = ''
+  @@path = @@custom_path || fallback_path
+  @@yaml = Pathname.new(@@path)
+  @@stock = YAML.load(@@yaml.read)
 
   desc "add ITEM", "Add ITEM to inventory."
   option :url, :aliases => :u, :required => true
