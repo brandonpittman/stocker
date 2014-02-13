@@ -86,8 +86,7 @@ class Stockr < Thor
   def count
     @@stock.each do |key, value|
       value["checked"] = Time.now
-      puts "Enter total for #{key}:"
-      value["total"] = gets.chomp.to_i
+      value["total"] = ask("Enter total for #{key}:", *args).to_i
     end
     Stockr.save
   end
