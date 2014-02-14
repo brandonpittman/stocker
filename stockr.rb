@@ -24,12 +24,11 @@ class Stockr < Thor
     end
   end
 
-  desc "add ITEM", "Add ITEM to inventory."
+  desc "add ITEM TOTAL", "Add ITEM with TOTAL on hand to inventory."
   option :url, :aliases => :u, :default => 'http://www.amazon.co.jp'
-  option :total, :aliases => :t, :required => true
   option :min, :aliases => :m, :default => 1
-  def add(item)
-    @@stock[item] = {'total' => options[:total].to_i, 'min' => options[:min].to_i, 'url' => options[:url], 'checked' => Time.now}
+  def add(item, total)
+    @@stock[item] = {'total' => total.to_i, 'min' => options[:min].to_i, 'url' => options[:url], 'checked' => Time.now}
   end
 
   desc "delete ITEM", "Delete ITEM from inventory."
@@ -96,7 +95,7 @@ class Stockr < Thor
     end
   end
 
-  desc "list", "List all inventory items and attributes."
+  desc "list", "List all inventory items and total on hand."
   def list
     @array = [['Item', 'Total'],['====================','=====']]
     @@stock.each do |key, value|
