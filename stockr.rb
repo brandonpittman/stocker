@@ -3,6 +3,7 @@
 require 'pathname'
 require 'yaml'
 require 'thor'
+require 'titleize'
 
 class Stockr < Thor
   @@custom_path = '/Users/brandonpittman/Dropbox/Documents/Code/Ruby/inventory.yml'
@@ -29,14 +30,12 @@ class Stockr < Thor
   option :min, :aliases => :m, :default => 1
   def add(item)
     @@stock[item] = {'total' => options[:total].to_i, 'min' => options[:min].to_i, 'url' => options[:url], 'checked' => Time.now}
-    Stockr.save
   end
 
   desc "delete ITEM", "Delete ITEM from inventory."
   def delete(item)
     Stockr.match_name(item)
     @@stock.delete(@@item)
-    Stockr.save
   end
 
   desc "check", "Check for low stock items."
@@ -48,7 +47,6 @@ class Stockr < Thor
         buy(key)
       end
     end
-    Stockr.save
   end
 
   desc "total ITEM TOTAL", "Set TOTAL of ITEM."
@@ -56,7 +54,6 @@ class Stockr < Thor
     Stockr.match_name(item)
     @@stock[@@item]["total"] = total.to_i
     Stockr.time(item)
-    Stockr.save
   end
 
   no_commands do
@@ -77,7 +74,6 @@ class Stockr < Thor
     Stockr.match_name(item)
     @@stock[@@item]["url"] = url
     Stockr.time(item)
-    Stockr.save
   end
 
   desc "buy ITEM", "Open link to buy ITEM"
@@ -90,7 +86,6 @@ class Stockr < Thor
   def min(item, min)
     Stockr.match_name(item)
     @@stock[@@item]["min"] = min.to_i
-    Stockr.save
   end
 
   desc "count", "Take an interactive inventory."
@@ -99,8 +94,17 @@ class Stockr < Thor
       value["checked"] = Time.now
       value["total"] = ask("Enter total for #{key}:", *args).to_i
     end
-    Stockr.save
+  end
+
+  desc "list", "List all inventory items and attributes."
+  def list
+    @array = [['Item', 'Total'],['====================','=====']]
+    @@stock.each do |key, value|
+      @array += [[key.titlecase,value['total']]]
+    end
+    print_table(@array,{indent: 2})
   end
 end
 
 Stockr.start(ARGV)
+Stockr.save
