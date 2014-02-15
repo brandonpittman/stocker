@@ -88,34 +88,39 @@ class Stockr < Thor
     end
   end
 
-  desc "csv", "Write entire inventory to STOUT as CSV."
+  desc "csv", "Write entire inventory to STred as CSV."
   def csv
-    @@stock.each do |key, value|
-      puts "#{key.titlecase},#{value['total']},#{value['min']},#{value['url']},#{value['checked']}"
-    end
+    @@stock.each { |key, value| puts "#{key.titlecase},#{value['total']},#{value['min']},#{value['url']},#{value['checked']}" }
   end
 
   desc "list", "List all inventory items and total on hand."
   def list
     @header = [[set_color("Item", :white), set_color("Total", :white)], [set_color("=================", :white), set_color("=====", :white)]]
-    @array = []
-    @array2 = []
-    @out = []
-    @out2 = []
+    @green = []
+    @yellow = []
+    @yellow2 = []
+    @green2 = []
+    @red = []
+    @red2 = []
     @@stock.each do |key, value|
-      if value['total'] >= value['min']
-        @array += [[key.titlecase,value['total']]]
+      if value['total'] > value['min']
+        @green += [[key.titlecase,value['total'], value['total']-value['min']]]
+      elsif value['total'] == value['min']
+        @yellow += [[key.titlecase,value['total'], value['total']-value['min']]]
       else
-        @out += [[key.titlecase,value['total']]]
+        @red += [[key.titlecase,value['total'], value['total']-value['min']]]
       end
     end
-    @array.sort_by! { |a,b| b }
-    @out.sort_by! { |a,b| b }
-    @array.reverse!
-    @out.reverse!
-    @array.each { |a,b| @array2 += [[set_color(a, :green), set_color(b, :green)]] }
-    @out.each { |a,b| @out2 += [[set_color(a, :red), set_color(b, :red)]] }
-    print_table(@header + @array2 + @out2,{indent: 2})
+    @green.sort_by! { |a,b,c| c }
+    @yellow.sort_by! { |a,b,c| c }
+    @red.sort_by! { |a,b,c| c }
+    @green.reverse!
+    @yellow.reverse!
+    @red.reverse!
+    @green.each { |a,b| @green2 += [[set_color(a, :green), set_color(b, :green)]] }
+    @yellow.each { |a,b| @yellow2 += [[set_color(a, :yellow), set_color(b, :yellow)]] }
+    @red.each { |a,b| @red2 += [[set_color(a, :red), set_color(b, :red)]] }
+    print_table(@header + @green2 + @yellow2 + @red2,{indent: 2})
   end
 end
 
