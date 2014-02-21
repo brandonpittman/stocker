@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'stocker'
+require File.dirname(__FILE__) + '/../lib/stocker.rb'
 
-Stocker.start(ARGV)
-Stocker.save
+Stocker::Generator.start(ARGV)
+Stocker::Generator.save
