@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require 'stocker'
+
+Stocker.start(ARGV)
+Stocker.save
