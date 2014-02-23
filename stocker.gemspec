@@ -4,7 +4,7 @@ require "stocker_version"
 Gem::Specification.new do |s|
   s.name        = 'stocker'
   s.version     = Stocker::VERSION
-  s.date        = '2014-02-19'
+  s.date        = '2014-02-22'
   s.summary     = "stocker is a lightweight home inventory application."
   s.description = "stocker will help track how many of something you have on hand."
   s.authors     = ["Brandon Pittman"]

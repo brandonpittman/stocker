@@ -43,7 +43,7 @@ module Stocker
     option :url, :aliases => :u, :default => 'http://amazon.com'
     option :minimum, :aliases => :m, :default => 1
     def new(item, total)
-        @@stock[item] = {'total' => total.to_i, 'min' => options[:min].to_i, 'url' => options[:url], 'checked' => Time.now}
+        @@stock[item] = {'total' => total.to_i, 'min' => options[:minimum].to_i, 'url' => options[:url], 'checked' => Time.now}
     end
 
     desc "delete ITEM", "Delete ITEM from inventory."
