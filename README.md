@@ -3,17 +3,17 @@ stockr
 
 ## Usage
 
-stocker buy ITEM          # Open link to buy ITEM
-stocker check             # Check for low stock items.
-stocker count             # Take an interactive inventory.
-stocker csv               # Write entire inventory as CSV.
-stocker delete ITEM       # Delete ITEM from inventory.
-stocker help [COMMAND]    # Describe available commands or one specific command
-stocker list              # List all inventory items and total on hand.
-stocker min ITEM MINIMUM  # Set minimum acceptable amount for ITEM.
-stocker new ITEM TOTAL    # Add ITEM with TOTAL on hand to inventory.
-stocker total ITEM TOTAL  # Set TOTAL of ITEM.
-stocker url ITEM URL      # Set URL of ITEM.
+- stocker buy ITEM          # Open link to buy ITEM
+- stocker check             # Check for low stock items.
+- stocker count             # Take an interactive inventory.
+- stocker csv               # Write entire inventory as CSV.
+- stocker delete ITEM       # Delete ITEM from inventory.
+- stocker help [COMMAND]    # Describe available commands or one specific command
+- stocker list              # List all inventory items and total on hand.
+- stocker min ITEM MINIMUM  # Set minimum acceptable amount for ITEM.
+- stocker new ITEM TOTAL    # Add ITEM with TOTAL on hand to inventory.
+- stocker total ITEM TOTAL  # Set TOTAL of ITEM.
+- stocker url ITEM URL      # Set URL of ITEM.
 
 ## Adding new items to the database
 
