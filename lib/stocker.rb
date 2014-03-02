@@ -20,12 +20,12 @@ module Stocker
       home_path = Pathname.new(home)
       db_path = Pathname.new(db)
       @@path = db_path || home_path
+      %x{mv #{@@path}/.stocker.yml #{@@path}.stocker.yaml} if File.exist?("#{@@path}/.stocker.yml")
     end
 
     public
 
     check_for_dropbox
-    #TODO: mv .stocker.yml .stocker.yaml if .stocker.yml exists
     @@yaml = Pathname.new("#{@@path}/.stocker.yaml")
     `touch #{@@yaml}`
     @@stock = YAML.load(@@yaml.read)
@@ -54,13 +54,16 @@ module Stocker
 
     desc "check", "Check for low stock items."
     def check
+      links = []
       @@stock.each do |key, value|
         value["checked"] = Time.now
-        if value["total"] <= value["min"]
+        if value["total"] < value["min"]
           puts "You're running low on #{key}!"
-          buy(key)
+          links << key
         end
       end
+      links.uniq!
+      links.each { |link| buy(link)}
     end
 
     desc "total ITEM TOTAL", "Set TOTAL of ITEM."
