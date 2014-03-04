@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    stocker (1.0.14)
+    stocker (1.0.2)
       thor (~> 0.18)
       titleize (~> 1.3)
 
