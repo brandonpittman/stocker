@@ -10,52 +10,27 @@ module Stocker
   class Generator < Thor
     trap("SIGINT") { exit 0 }
 
-    @@path = nil
-
-    private
-
-    def self.check_for_dropbox
-      home = Dir.home
-      db = "#{Dir.home}/Dropbox"
-      home_path = Pathname.new(home)
-      db_path = Pathname.new(db)
-      @@path = db_path || home_path
-      %x{mv #{@@path}/.stocker.yml #{@@path}.stocker.yaml} if File.exist?("#{@@path}/.stocker.yml")
-    end
-
-    public
-
-    check_for_dropbox
-    @@yaml = Pathname.new("#{@@path}/.stocker.yaml")
-    `touch #{@@yaml}`
-    @@stock = YAML.load(@@yaml.read)
-    @@stock = {} unless @@stock.class == Hash
-
-    private
-
-    def match_name(item)
-      @@stock.each_key { |key| @@item = key if key =~ /#{item}/ }
-    end
-
-    public
-
     desc "new ITEM TOTAL", "Add ITEM with TOTAL on hand to inventory."
-    option :url, :aliases => :u, :default => 'http://amazon.com'
+    option :url, :aliases => :u
     option :minimum, :aliases => :m, :default => 1
     def new(item, total)
-        @@stock[item] = {'total' => total.to_i, 'min' => options[:minimum].to_i, 'url' => options[:url], 'checked' => Time.now}
+        data = read_file
+        data[item] = {'total' => total.to_i, 'min' => options[:minimum].to_i, 'url' => options[:url] || read_config['url'], 'checked' => Time.now}
+        write_file(data)
     end
 
     desc "delete ITEM", "Delete ITEM from inventory."
     def delete(item)
+      data = read_file
       match_name(item)
-      @@stock.delete(@@item)
+      data.delete(@@item)
+      write_file(data)
     end
 
     desc "check", "Check for low stock items."
     def check
       links = []
-      @@stock.each do |key, value|
+      read_file.each do |key, value|
         value["checked"] = Time.now
         if value["total"] < value["min"]
           puts "You're running low on #{key}!"
@@ -68,47 +43,39 @@ module Stocker
 
     desc "total ITEM TOTAL", "Set TOTAL of ITEM."
     def total(item, total)
+      data = read_file
       match_name(item)
-      @@stock[@@item]["total"] = total.to_i
+      data[@@item]["total"] = total.to_i
       time(item)
+      write_file(data)
     end
-
-    private
-
-    def time(item)
-      match_name(item)
-      @@stock[@@item]["checked"] = Time.now
-    end
-
-    def self.save
-      @@yaml.open('w') { |t| t << @@stock.to_yaml }
-      # @@yaml.write(@@stock.to_yaml)
-    end
-
-    public
 
     desc "url ITEM URL", "Set URL of ITEM."
     def url(item, url)
+      data = read_file
       match_name(item)
-      @@stock[@@item]["url"] = url
+      data[@@item]["url"] = url
       time(item)
+      write_file(data)
     end
 
     desc "buy ITEM", "Open link to buy ITEM"
     def buy(item)
       match_name(item)
-      `open -a Safari #{@@stock[@@item]["url"]}`
+      `open -a Safari #{read_file[@@item]["url"]}`
     end
 
     desc "min ITEM MINIMUM", "Set minimum acceptable amount for ITEM."
     def min(item, min)
+      data = read_file
       match_name(item)
-      @@stock[@@item]["min"] = min.to_i
+      data[@@item]["min"] = min.to_i
+      write_file(data)
     end
 
     desc "count", "Take an interactive inventory."
     def count
-      @@stock.each do |key, value|
+      read_file.each do |key, value|
         value["checked"] = Time.now
         value["total"] = ask("#{key.titlecase}:", *args).to_i
       end
@@ -117,7 +84,7 @@ module Stocker
 
     desc "csv", "Write entire inventory as CSV."
     def csv
-      @@stock.each { |key, value| puts "#{key.titlecase},#{value['total']},#{value['min']},#{value['url']},#{value['checked']}" }
+      read_file.each { |key, value| puts "#{key.titlecase},#{value['total']},#{value['min']},#{value['url']},#{value['checked']}" }
     end
 
     desc "list", "List all inventory items and total on hand."
@@ -139,7 +106,7 @@ module Stocker
         @green2 = []
         @red = []
         @red2 = []
-        @@stock.each do |key, value|
+        read_file.each do |key, value|
           if value['total'] > value['min']
             @green += [[key.titlecase,value['total'], value['total']-value['min']]]
           elsif value['total'] == value['min']
@@ -160,6 +127,89 @@ module Stocker
         print_table(@header + @green2 + @yellow2 + @red2,{indent: 2})
       rescue Exception => e
         puts "Inventory empty"
+      end
+    end
+
+    desc "config", "Set configuration settings for stocker."
+    option :url, :aliases => :u, :type => :string, :required => true
+    def config
+      settings = read_config
+      settings['url'] = options[:url] || 'http://amazon.com'
+      write_config(settings)
+    end
+
+    no_commands do
+      def path
+        dropbox = Pathname.new("#{ENV['HOME']}/Dropbox/")
+        home = Pathname.new("#{ENV['HOME']}/")
+        path = dropbox.exist? ? dropbox : home
+      end
+
+      def config_file
+        path.join(".stocker.config.yaml")
+      end
+
+      def read_config
+        config_file_exist?
+        YAML.load(config_file.read)
+      end
+
+      def write_file(hash)
+        file.open('w') { |t| t << hash.to_yaml }
+      end
+
+      def write_config(hash)
+        config_file.open('w') { |t| t << hash.to_yaml }
+      end
+
+      def editor
+        read_config[:editor]
+      end
+
+      def file
+        path.join(".stocker.yaml")
+      end
+
+      def read_file
+        YAML.load(file.read)
+      end
+
+      def config_file_exist?
+        return true if config_file.exist?
+        create_config_file
+        return true
+      end
+
+      def file_exist?
+        return true if file.exist?
+        create_file
+        return true
+      end
+
+      def create_config_file
+        FileUtils.touch(config_file)
+        settings = {}
+        settings['url'] = 'http://amazon.com'
+        write_config(settings)
+      end
+
+      def create_file
+        FileUtils.touch(file)
+      end
+
+      def today
+        Date.today
+      end
+
+      def time(item)
+        data = read_file
+        match_name(item)
+        data[@@item]["checked"] = Time.now
+        write_file(data)
+      end
+
+      def match_name(item)
+        read_file.each_key { |key| @@item = key if key =~ /#{item}/ }
       end
     end
   end

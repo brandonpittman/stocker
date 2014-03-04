@@ -1,5 +1,5 @@
 $LOAD_PATH.push File.expand_path("../lib", __FILE__)
-require "stocker_version"
+require "stocker/version"
 
 Gem::Specification.new do |s|
   s.name        = 'stocker'
@@ -15,4 +15,6 @@ Gem::Specification.new do |s|
   s.executables << 'stocker'
   s.add_dependency("thor", "~> 0.18")
   s.add_dependency("titleize", "~>1.3")
+  s.add_development_dependency("cucumber")
+  s.add_development_dependency("aruba")
 end
