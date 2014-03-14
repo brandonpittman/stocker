@@ -75,10 +75,12 @@ module Stocker
 
     desc "count", "Take an interactive inventory."
     def count
-      read_file.each do |key, value|
+      values = read_file
+      values.each do |key, value|
         value["checked"] = Time.now
-        value["total"] = ask("#{key.titlecase}:", *args).to_i
+        value["total"] = ask("#{key.titlecase}:").to_i
       end
+      write_file(values)
       invoke :check
     end
 
@@ -140,9 +142,7 @@ module Stocker
 
     no_commands do
       def path
-        dropbox = Pathname.new("#{ENV['HOME']}/Dropbox/")
-        home = Pathname.new("#{ENV['HOME']}/")
-        path = dropbox.exist? ? dropbox : home
+        Pathname.new("#{ENV['HOME']}/")
       end
 
       def config_file
