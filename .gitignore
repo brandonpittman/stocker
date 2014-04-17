@@ -1,1 +1,4 @@
 .gemspec
+tags
+.DS_STORE
+pkg/*
