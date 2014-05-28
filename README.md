@@ -1,6 +1,8 @@
 stocker
 ======
 
+[![Inline docs](http://inch-pages.github.io/github/brandonpittman/stocker.png)](http://inch-pages.github.io/github/brandonpittman/stocker)
+
 ## Usage
 
     stocker buy ITEM          # Open link to buy ITEM
