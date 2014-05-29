@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.8.7.3
+    &mdash; Documentation by YARD 0.8.7.4
   
 </title>
 
@@ -14,16 +14,20 @@
 
   <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
 
+  <link rel="stylesheet" href="css/cucumber.css" type="text/css" charset="utf-8" />
+
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
   relpath = '';
-  framesUrl = "frames.html#!" + escape(window.location.href);
+  framesUrl = "frames.html#!file.README.html";
 </script>
 
 
   <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
 
   <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/cucumber.js"></script>
 
 
   </head>
@@ -39,6 +43,16 @@
 </div>
 
       <div id="search">
+  
+    <a class="full_list_link" id="feature_list_link"
+        href="feature_list.html">
+      Features
+    </a>
+  
+    <a class="full_list_link" id="tag_list_link"
+        href="tag_list.html">
+      Tags
+    </a>
   
     <a class="full_list_link" id="class_list_link"
         href="class_list.html">
@@ -61,15 +75,46 @@
 
     <iframe id="search_frame"></iframe>
 
-    <div id="content"><div id='filecontents'><h1>stockr</h1>
+    <div id="content"><div id='filecontents'><h1>stocker</h1>
 
-<p>Keep an inventory of things.</p>
+<h2>Usage</h2>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_stocker'>stocker</span> <span class='id identifier rubyid_buy'>buy</span> <span class='const'>ITEM</span>          <span class='comment'># Open link to buy ITEM
+</span><span class='id identifier rubyid_stocker'>stocker</span> <span class='id identifier rubyid_check'>check</span>             <span class='comment'># Check for low stock items.
+</span><span class='id identifier rubyid_stocker'>stocker</span> <span class='id identifier rubyid_count'>count</span>             <span class='comment'># Take an interactive inventory.
+</span><span class='id identifier rubyid_stocker'>stocker</span> <span class='id identifier rubyid_csv'>csv</span>               <span class='comment'># Write entire inventory as CSV.
+</span><span class='id identifier rubyid_stocker'>stocker</span> <span class='id identifier rubyid_delete'>delete</span> <span class='const'>ITEM</span>       <span class='comment'># Delete ITEM from inventory.
+</span><span class='id identifier rubyid_stocker'>stocker</span> <span class='id identifier rubyid_help'>help</span> <span class='lbracket'>[</span><span class='const'>COMMAND</span><span class='rbracket'>]</span>    <span class='comment'># Describe available commands or one specific command
+</span><span class='id identifier rubyid_stocker'>stocker</span> <span class='id identifier rubyid_list'>list</span>              <span class='comment'># List all inventory items and total on hand.
+</span><span class='id identifier rubyid_stocker'>stocker</span> <span class='id identifier rubyid_min'>min</span> <span class='const'>ITEM</span> <span class='const'>MINIMUM</span>  <span class='comment'># Set minimum acceptable amount for ITEM.
+</span><span class='id identifier rubyid_stocker'>stocker</span> <span class='id identifier rubyid_new'>new</span> <span class='const'>ITEM</span> <span class='const'>TOTAL</span>    <span class='comment'># Add ITEM with TOTAL on hand to inventory.
+</span><span class='id identifier rubyid_stocker'>stocker</span> <span class='id identifier rubyid_total'>total</span> <span class='const'>ITEM</span> <span class='const'>TOTAL</span>  <span class='comment'># Set TOTAL of ITEM.
+</span><span class='id identifier rubyid_stocker'>stocker</span> <span class='id identifier rubyid_url'>url</span> <span class='const'>ITEM</span> <span class='const'>URL</span>      <span class='comment'># Set URL of ITEM.
+</span></code></pre>
+
+<h2>Adding new items to the database</h2>
+
+<p>When you use <code>stocker new ITEM TOTAL</code>, there are default values set for MINIMUM and URL. These are 1 and <a href="http://amazon.com">http://amazon.com</a>, respectively. You can easily change these with <code>--minimum</code> and <code>--url</code> when creating new items. In addition to this, you can set a global default url by using <code>stocker config --url SOME_URL</code>. You can also use <code>stocker min</code> and <code>stocker url</code> after creation as well if necessary.</p>
+
+<h2>Getting a list of all items</h2>
+
+<p><code>stocker list</code> will pretty print a list of all items, with well-stocked items in green, items close to running out in yellow and low-count items in red. If you need a data dump to parse with awk, use <code>stocker csv</code>.</p>
+
+<h2>Taking inventory</h2>
+
+<p><code>stocker count</code> will run through you every item in your inventory and let you interactively enter current totals for each one. You can alternatively use <code>stocker total ITEM TOTAL</code> to enter a new total for a single item.</p>
+
+<h2>Tips</h2>
+
+<p>When you&#39;re using <code>delete</code>, <code>total</code>, <code>min</code> and <code>total</code> you can just use a part of the item&#39;s name. stocker will attempt to match the name of the item using a regex.</p>
+
+<p>Example: <code>stocker total toilet 12</code> will match &#39;toilet paper&#39; and set it&#39;s total to 12.</p>
 </div></div>
 
     <div id="footer">
-  Generated on Fri Feb 21 18:21:18 2014 by
+  Generated on Thu May 29 18:47:59 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.3 (ruby-2.2.0).
+  0.8.7.4 (ruby-2.1.2).
 </div>
 
   </body>

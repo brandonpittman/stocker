@@ -167,7 +167,7 @@ module Stocker
       end
 
       def file
-        path.join(".stocker.yaml")
+        path.join("~/.stocker.yaml")
       end
 
       def read_file
