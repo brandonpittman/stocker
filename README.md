@@ -1,6 +1,7 @@
 stocker
 ======
 
+[![Gem Version](https://badge.fury.io/rb/stocker.svg)](http://badge.fury.io/rb/stocker)
 [![Inline docs](http://inch-pages.github.io/github/brandonpittman/stocker.png)](http://inch-pages.github.io/github/brandonpittman/stocker)
 
 ## Usage
@@ -19,7 +20,7 @@ stocker
 
 ## Adding new items to the database
 
-When you use `stocker new ITEM TOTAL`, there are default values set for MINIMUM and URL. These are 1 and http://amazon.com, respectively. You can easily change these with `--minimum` and `--url` when creating new items. In addition to this, you can set a global default url by using `stocker config --url SOME_URL`. You can also use `stocker min` and `stocker url` after creation as well if necessary.
+When you use `stocker new ITEM TOTAL`, there are default values set for MINIMUM and URL. These are 1 and http://amazon.com, respectively. You can easily change these with `--minimum` and `--url` when creating new items. In addition to this, you can set a global default URL by using `stocker config --url SOME_URL`. You can also use `stocker min` and `stocker url` after creation as well if necessary.
 
 ## Getting a list of all items
 
