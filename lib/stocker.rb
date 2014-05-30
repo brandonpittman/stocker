@@ -5,14 +5,21 @@ require 'yaml'
 require 'thor'
 require 'titleize'
 
+# Stocker is an app for managing an inventory of items. For example, an inventory of household items such as cleaning products, foodstuffs and how many bottles of beer you have.
 # @author Brandon Pittman
 module Stocker
+  # This is the "God" object that interacts with Thor's methods.
   class Generator < Thor
+    # This trap is so that if you <Ctrl-C> out of "Stocker#count" your terminal won't display an error.
     trap("SIGINT") { exit 0 }
 
     desc "new ITEM TOTAL", "Add ITEM with TOTAL on hand to inventory."
     option :url, :aliases => :u
     option :minimum, :aliases => :m, :default => 1
+    # Creates a new item in the inventory
+    # @param item [String] The item to add to the inventory
+    # @param total [String] How many of the new item on hand
+    # @return [Hash] Returns a hash of the updated inventory and writes YAML to .stocker.yaml
     def new(item, total)
         data = read_file
         data[item] = {'total' => total.to_i, 'min' => options[:minimum].to_i, 'url' => options[:url] || read_config['url'], 'checked' => Time.now}
@@ -20,6 +27,10 @@ module Stocker
     end
 
     desc "delete ITEM", "Delete ITEM from inventory."
+    # Deletes an item from the inventory.
+    # Stocker will attempt a "fuzzy match" of the item name.
+    # @param item [String] The item to delete from the inventory
+    # @return [Hash] Returns a hash of the updated inventory and writes YAML to .stocker.yaml
     def delete(item)
       data = read_file
       match_name(item)
@@ -28,6 +39,8 @@ module Stocker
     end
 
     desc "check", "Check for low stock items."
+    # Checks the total number of items on hand against their acceptable minimum values and opens the URLs of any items running low in stock.
+    # @return Opens a link in default web browser if URL is set for low stock item
     def check
       links = []
       read_file.each do |key, value|
@@ -42,6 +55,9 @@ module Stocker
     end
 
     desc "total ITEM TOTAL", "Set TOTAL of ITEM."
+    # Set total of existing item in Stocker's inventory
+    # @param item [String] item to update
+    # @param total [String] total on hand
     def total(item, total)
       data = read_file
       match_name(item)
@@ -51,6 +67,9 @@ module Stocker
     end
 
     desc "url ITEM URL", "Set URL of ITEM."
+    # Set URL of existing item in Stocker's inventory
+    # @param item [String] item to update
+    # @param url [String] URL of item
     def url(item, url)
       data = read_file
       match_name(item)
@@ -60,12 +79,17 @@ module Stocker
     end
 
     desc "buy ITEM", "Open link to buy ITEM"
+    # Open URL of item
+    # @param item [String] existing item in inventory
     def buy(item)
       match_name(item)
       `open -a Safari #{read_file[@@item]["url"]}`
     end
 
     desc "min ITEM MINIMUM", "Set minimum acceptable amount for ITEM."
+    # Set minimum acceptable amount of existing inventory item
+    # @param item [String] item to update
+    # @param min [String] acceptable minimum amount of item to always have on hand
     def min(item, min)
       data = read_file
       match_name(item)
@@ -74,6 +98,9 @@ module Stocker
     end
 
     desc "count", "Take an interactive inventory."
+    # Do a count update for all inventory items *interactively*.
+    # Stocker#count will loop through the inventory and ask you for the total on hand count for each item.
+    # When the counting is finished, Stocker will run Stocker#check and open the URLs of any low stock items.
     def count
       values = read_file
       values.each do |key, value|
@@ -85,6 +112,8 @@ module Stocker
     end
 
     desc "csv", "Write entire inventory as CSV."
+    # Output a CSV dump of the entire inventory. This is useful with `awk` and `sed`.
+    # @return [String] CSV of entire inventory
     def csv
       read_file.each { |key, value| puts "#{key.titlecase},#{value['total']},#{value['min']},#{value['url']},#{value['checked']}" }
     end
@@ -99,6 +128,7 @@ module Stocker
 
       example: I have 24 beers. I want to have at least 23 on hand at all times. I have 23 bags of chips, but I only need to have one at all times. The beer's difference is only one, but the chips' is 22. So even though I have more beer, it will show up below chips in the list.
     LONGDESC
+    # Print a list of all inventory items. Green items are well stocked. Yellow items are at minimum acceptable total. Red items are below minimum acceptable total.
     def list
       begin
         @header = [[set_color("Item", :white), set_color("Total", :white)], [set_color("=================", :white), set_color("=====", :white)]]
@@ -134,6 +164,9 @@ module Stocker
 
     desc "config", "Set configuration settings for stocker."
     option :url, :aliases => :u, :type => :string, :required => true
+    # Configure Stocker's default settings
+    # If the --url param is not passed, no configurations will be changed.
+    # @param --url [String] Sets the default URL that is set for newly created inventory items
     def config
       settings = read_config
       settings['url'] = options[:url] || 'http://amazon.com'

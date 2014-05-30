@@ -115,7 +115,18 @@
 </dl>
 <div class="clear"></div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>This is the “God” object that interacts with Thor&#39;s methods.</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
@@ -147,7 +158,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Open URL of item.</p>
+</div></span>
   
 </li>
 
@@ -169,7 +182,10 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Checks the total number of items on hand against their acceptable minimum
+values and opens the URLs of any items running low in stock.</p>
+</div></span>
   
 </li>
 
@@ -191,7 +207,10 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Configure Stocker&#39;s default settings If the –url param is not passed,
+no configurations will be changed.</p>
+</div></span>
   
 </li>
 
@@ -213,7 +232,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Do a count update for all inventory items <strong>interactively</strong>.</p>
+</div></span>
   
 </li>
 
@@ -221,7 +242,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#csv-instance_method" title="#csv (instance method)">- (Object) <strong>csv</strong> </a>
+      <a href="#csv-instance_method" title="#csv (instance method)">- (String) <strong>csv</strong> </a>
     
 
     
@@ -235,7 +256,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Output a CSV dump of the entire inventory.</p>
+</div></span>
   
 </li>
 
@@ -243,7 +266,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#delete-instance_method" title="#delete (instance method)">- (Object) <strong>delete</strong>(item) </a>
+      <a href="#delete-instance_method" title="#delete (instance method)">- (Hash) <strong>delete</strong>(item) </a>
     
 
     
@@ -257,7 +280,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Deletes an item from the inventory.</p>
+</div></span>
   
 </li>
 
@@ -279,7 +304,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Print a list of all inventory items.</p>
+</div></span>
   
 </li>
 
@@ -301,7 +328,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Set minimum acceptable amount of existing inventory item.</p>
+</div></span>
   
 </li>
 
@@ -309,7 +338,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#new-instance_method" title="#new (instance method)">- (Object) <strong>new</strong>(item, total) </a>
+      <a href="#new-instance_method" title="#new (instance method)">- (Hash) <strong>new</strong>(item, total) </a>
     
 
     
@@ -323,7 +352,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Creates a new item in the inventory.</p>
+</div></span>
   
 </li>
 
@@ -345,7 +376,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Set total of existing item in Stocker&#39;s inventory.</p>
+</div></span>
   
 </li>
 
@@ -367,7 +400,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Set URL of existing item in Stocker&#39;s inventory.</p>
+</div></span>
   
 </li>
 
@@ -391,19 +426,50 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Open URL of item</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>item</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>existing item in inventory</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-63
-64
-65
-66</pre>
+84
+85
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_buy'>buy</span><span class='lparen'>(</span><span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_match_name'>match_name</span><span class='lparen'>(</span><span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span>
@@ -423,27 +489,57 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Checks the total number of items on hand against their acceptable minimum
+values and opens the URLs of any items running low in stock.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'>
+<p>Opens a link in default web browser if URL is set for low stock item</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42</pre>
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_check'>check</span>
   <span class='id identifier rubyid_links'>links</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -471,20 +567,52 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Configure Stocker&#39;s default settings If the –url param is not passed,
+no configurations will be changed.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>--url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Sets the default URL that is set for newly created inventory items</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-137
-138
-139
-140
-141</pre>
+170
+171
+172
+173
+174</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 137</span>
+      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 170</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_config'>config</span>
   <span class='id identifier rubyid_settings'>settings</span> <span class='op'>=</span> <span class='id identifier rubyid_read_config'>read_config</span>
@@ -505,24 +633,38 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Do a count update for all inventory items <strong>interactively</strong>.
+Stocker#count will loop through the inventory and ask you for the total on
+hand count for each item. When the counting is finished, Stocker will run
+Stocker#check and open the URLs of any low stock items.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-77
-78
-79
-80
-81
-82
-83
-84
-85</pre>
+104
+105
+106
+107
+108
+109
+110
+111
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_count'>count</span>
   <span class='id identifier rubyid_values'>values</span> <span class='op'>=</span> <span class='id identifier rubyid_read_file'>read_file</span>
@@ -541,24 +683,54 @@
       <div class="method_details ">
   <h3 class="signature " id="csv-instance_method">
   
-    - (<tt>Object</tt>) <strong>csv</strong> 
+    - (<tt>String</tt>) <strong>csv</strong> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Output a CSV dump of the entire inventory. This is useful with `awk` and
+`sed`.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>CSV of entire inventory</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-88
-89
-90</pre>
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_csv'>csv</span>
   <span class='id identifier rubyid_read_file'>read_file</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span> <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_titlecase'>titlecase</span><span class='embexpr_end'>}</span><span class='tstring_content'>,</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value'>value</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>total</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>,</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value'>value</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>min</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>,</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value'>value</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>url</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>,</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value'>value</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>checked</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
@@ -571,27 +743,77 @@
       <div class="method_details ">
   <h3 class="signature " id="delete-instance_method">
   
-    - (<tt>Object</tt>) <strong>delete</strong>(item) 
+    - (<tt>Hash</tt>) <strong>delete</strong>(item) 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Deletes an item from the inventory. Stocker will attempt a “fuzzy match” of
+the item name.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>item</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The item to delete from the inventory</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Returns a hash of the updated inventory and writes YAML to .stocker.yaml</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-23
-24
-25
-26
-27
-28</pre>
+34
+35
+36
+37
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_read_file'>read_file</span>
@@ -613,47 +835,60 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Print a list of all inventory items. Green items are well stocked. Yellow
+items are at minimum acceptable total. Red items are below minimum
+acceptable total.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-102
-103
-104
-105
-106
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123
-124
-125
-126
-127
-128
-129
-130
-131
 132
-133</pre>
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 132</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_list'>list</span>
   <span class='kw'>begin</span>
@@ -701,21 +936,68 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Set minimum acceptable amount of existing inventory item</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>item</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>item to update</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>min</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>acceptable minimum amount of item to always have on hand</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-69
-70
-71
-72
-73
-74</pre>
+93
+94
+95
+96
+97
+98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 93</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_min'>min</span><span class='lparen'>(</span><span class='id identifier rubyid_item'>item</span><span class='comma'>,</span> <span class='id identifier rubyid_min'>min</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_read_file'>read_file</span>
@@ -731,26 +1013,91 @@
       <div class="method_details ">
   <h3 class="signature " id="new-instance_method">
   
-    - (<tt>Object</tt>) <strong>new</strong>(item, total) 
+    - (<tt>Hash</tt>) <strong>new</strong>(item, total) 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Creates a new item in the inventory</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>item</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The item to add to the inventory</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>total</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>How many of the new item on hand</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Returns a hash of the updated inventory and writes YAML to .stocker.yaml</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-16
-17
-18
-19
-20</pre>
+23
+24
+25
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_item'>item</span><span class='comma'>,</span> <span class='id identifier rubyid_total'>total</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_read_file'>read_file</span>
@@ -771,22 +1118,69 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Set total of existing item in Stocker&#39;s inventory</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>item</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>item to update</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>total</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>total on hand</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-45
-46
-47
-48
-49
-50
-51</pre>
+61
+62
+63
+64
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_total'>total</span><span class='lparen'>(</span><span class='id identifier rubyid_item'>item</span><span class='comma'>,</span> <span class='id identifier rubyid_total'>total</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_read_file'>read_file</span>
@@ -809,22 +1203,69 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Set URL of existing item in Stocker&#39;s inventory</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>item</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>item to update</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>URL of item</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-54
-55
-56
-57
-58
-59
-60</pre>
+73
+74
+75
+76
+77
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/stocker.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_url'>url</span><span class='lparen'>(</span><span class='id identifier rubyid_item'>item</span><span class='comma'>,</span> <span class='id identifier rubyid_url'>url</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_read_file'>read_file</span>
@@ -843,7 +1284,7 @@
 </div>
 
     <div id="footer">
-  Generated on Thu May 29 18:48:00 2014 by
+  Generated on Fri May 30 11:18:00 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.4 (ruby-2.1.2).
 </div>

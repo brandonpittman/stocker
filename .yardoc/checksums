@@ -1,3 +1,2 @@
-lib/stocker.rb a8d5c094cefecfbc542bb1f5ef4a1adfd14c2b77
-lib/stocker/version.rb e77888ef29647d924b29ac9880fd221936b9ad73
-features/read_config.feature 4e02fc51445a7dad10dd12319c6ee68af9117a61
+lib/stocker.rb a60592f5bafebe41bd4e13058fb13da4493e71be
+lib/stocker/version.rb dfcd9675a5c0d8fb95402674074e6cb32be2690f
