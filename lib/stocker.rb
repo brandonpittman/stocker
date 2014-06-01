@@ -200,7 +200,7 @@ module Stocker
       end
 
       def file
-        path.join("~/.stocker.yaml")
+        path.join("#{ENV['HOME']}/.stocker.yaml")
       end
 
       def read_file
