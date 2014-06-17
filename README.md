@@ -2,7 +2,7 @@ stocker
 ======
 
 [![Gem Version](https://badge.fury.io/rb/stocker.svg)](http://badge.fury.io/rb/stocker)
-[![Inline docs](http://inch-pages.github.io/github/brandonpittman/stocker.png)](http://inch-pages.github.io/github/brandonpittman/stocker)
+[![Inline docs](http://inch-ci.org/github/brandonpittman/stocker.png)](http://inch-ci.org/github/brandonpittman/stocker)
 
 ## Usage
 
