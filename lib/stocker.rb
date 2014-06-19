@@ -131,7 +131,8 @@ module Stocker
     # Print a list of all inventory items. Green items are well stocked. Yellow items are at minimum acceptable total. Red items are below minimum acceptable total.
     def list
       begin
-        @header = [[set_color("Item", :white), set_color("Total", :white)], [set_color("=================", :white), set_color("=====", :white)]]
+        @header = [["", ""]]
+        # @header = [[set_color("Item", :white), set_color("Total", :white)], [set_color("=================", :white), set_color("=====", :white)]]
         @green = []
         @yellow = []
         @yellow2 = []
