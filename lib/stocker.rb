@@ -168,6 +168,9 @@ module Stocker
     # Configure Stocker's default settings
     # If the --url param is not passed, no configurations will be changed.
     # @param --url [String] Sets the default URL that is set for newly created inventory items
+    # @return [Hash] Hash of configuration settings saved to a YAML file
+    # @example
+    #   "nikki config --url 'http://amazon.com'"
     def config
       settings = read_config
       settings['url'] = options[:url] || 'http://amazon.com'

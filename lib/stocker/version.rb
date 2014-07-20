@@ -1,5 +1,5 @@
 # Module for Stocker VERSION constant.
 module Stocker
   # Sets current version of Stocker
-  VERSION = '1.3.2'
+  VERSION = '1.3.3'
 end
