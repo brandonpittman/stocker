@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
   s.executables << 'stocker'
   s.add_dependency("thor")
+  s.add_dependency("rake")
   s.add_dependency("titleize")
   s.add_development_dependency("cucumber")
   s.add_development_dependency("aruba")
